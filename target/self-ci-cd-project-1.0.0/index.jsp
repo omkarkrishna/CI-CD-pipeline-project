@@ -1,76 +1,70 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>CI/CD Pipeline Visualization</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CI/CD Pipeline Overview</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            text-align: center;
             background-color: #f4f4f4;
+            text-align: center;
         }
         .container {
-            margin-top: 50px;
+            width: 80%;
+            margin: auto;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px gray;
+        }
+        h1 {
+            color: #007bff;
         }
         .step {
-            display: inline-block;
-            padding: 20px;
-            margin: 20px;
-            background-color: #0073e6;
-            color: white;
-            border-radius: 10px;
-            font-size: 20px;
-            position: relative;
-        }
-        .arrow {
-            display: inline-block;
-            font-size: 30px;
-            color: #0073e6;
-            position: relative;
-            top: -5px;
-        }
-        .ball {
-            width: 20px;
-            height: 20px;
-            background-color: red;
-            border-radius: 50%;
-            position: absolute;
+            margin: 20px 0;
+            padding: 15px;
+            background: #e3f2fd;
+            border-left: 5px solid #007bff;
         }
     </style>
 </head>
 <body>
-    <h1>CI/CD Pipeline Workflow</h1>
     <div class="container">
-        <div class="step">GitHub</div>
-        <div class="arrow">→</div>
-        <div class="step">Jenkins</div>
-        <div class="arrow">→</div>
-        <div class="step">SonarQube</div>
-        <div class="arrow">→</div>
-        <div class="step">Docker</div>
-        <div class="arrow">→</div>
-        <div class="step">Kubernetes</div>
-        <div class="arrow">→</div>
-        <div class="step">ArgoCD</div>
+        <h1>CI/CD Pipeline Workflow</h1>
+        
+        <div class="step">
+            <h2>Step 1: Code Push to GitHub</h2>
+            <p>Developers push code changes to the GitHub repository. This triggers Jenkins to start the pipeline.</p>
+        </div>
+        
+        <div class="step">
+            <h2>Step 2: Jenkins Build</h2>
+            <p>Jenkins pulls the latest code, compiles it using Maven, and runs tests.</p>
+        </div>
+        
+        <div class="step">
+            <h2>Step 3: SonarQube Code Analysis</h2>
+            <p>Jenkins sends the code to SonarQube for static code analysis to ensure code quality and security.</p>
+        </div>
+        
+        <div class="step">
+            <h2>Step 4: Docker Image Creation</h2>
+            <p>If tests pass, Jenkins builds a Docker image and pushes it to Docker Hub.</p>
+        </div>
+        
+        <div class="step">
+            <h2>Step 5: Kubernetes Deployment</h2>
+            <p>Kubernetes pulls the Docker image from Docker Hub and deploys it in the cluster.</p>
+        </div>
+        
+        <div class="step">
+            <h2>Step 6: ArgoCD Sync</h2>
+            <p>ArgoCD automatically detects new deployments and ensures the Kubernetes cluster is updated.</p>
+        </div>
+        
+        <h3>Your application is now live and accessible!</h3>
     </div>
-
-    <script>
-        function animateBall() {
-            let ball = document.createElement("div");
-            ball.classList.add("ball");
-            document.body.appendChild(ball);
-            anime({
-                targets: ball,
-                translateX: [0, window.innerWidth - 50],
-                duration: 5000,
-                easing: 'easeInOutSine',
-                complete: function() { ball.remove(); }
-            });
-        }
-        setInterval(animateBall, 3000);
-    </script>
 </body>
 </html>
